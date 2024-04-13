@@ -14,6 +14,7 @@ import Image2 from './images/activities/image_2.png';
 import Image3 from './images/activities/image_3.png';
 import Image4 from './images/activities/image_4.png';
 import Image5 from './images/activities/image_5.png';
+import Image6 from './images/activities/image_6.png';
 
 //  Config
 import {texts, tagsOptions} from './config/text.js';
@@ -106,6 +107,8 @@ function App() {
 						</div>
 					</div>
 
+					<ImageCard image={Image6} className='w-full' />	
+
 					<div
 						className='w-full items-center flex flex-col gap-5'
 						ref={targetAboutRef}
@@ -142,7 +145,7 @@ function App() {
 							{texts[2].title}
 						</span>
 
-						<div className='grid grid-cols-1 grid-rows-5 sm:grid-cols-6 sm:grid-rows-2 gap-4 sm:max-h-[640px]'>
+						<div className='grid grid-cols-1 grid-rows-5 sm:grid-cols-6 sm:grid-rows-2 gap-4 sm:max-h-[740px]'>
 							<ImageCard image={Image1} className='sm:col-span-2' />
 							<ImageCard image={Image2} className='sm:col-span-2' />
 							<ImageCard image={Image3} className='sm:col-span-2' />
