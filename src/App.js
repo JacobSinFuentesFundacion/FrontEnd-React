@@ -1,11 +1,10 @@
 //  Imports
-import {useRef, useState} from 'react';
+import {useRef} from 'react';
 import emailjs from '@emailjs/browser';
 import ImageCard from './components/ImageCard.jsx';
 
 //  Components
 import NavBarComponent from './components/NavBar.jsx';
-import OnLoading from './components/OnLoading.jsx';
 import TableDonation from './components/TableDonation.jsx';
 
 //  Images
@@ -20,35 +19,15 @@ import Image5 from './images/activities/image_5.png';
 import {texts, tagsOptions} from './config/text.js';
 import {contactOptions} from './config/contact.js';
 
-//  Api
-import ApiMain from './api/main.api.js';
 
 import {
 	REACT_APP_SERVICE_ID,
 	REACT_APP_TEMPLATE_ID,
 	REACT_APP_PUBLIC_KEY,
+	REACT_APP_DONATION,
 } from './config/enviroment.js';
 
 function App() {
-	const [onLoadLink, setOnLoadLink] = useState(false);
-	const handleGetLink = async () => {
-		setOnLoadLink(true);
-		await ApiMain.get('/get-link', {
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		})
-		.then(response => {
-			window.open(response.data.link, '_self');
-		})
-		.catch(error => {
-			console.log(error);
-		})
-		.finally(() => {
-			setOnLoadLink(false);
-		});
-	};
-
 	const form = useRef(null);
 	const contactForm = async e => {
 		e.preventDefault();
@@ -90,7 +69,7 @@ function App() {
 					behavior: 'smooth',
 				}),
 		},
-		{
+		"False".toLowerCase() === REACT_APP_DONATION && {
 			name: 'Donaciones',
 			function: () =>
 				targetDonationRef.current &&
@@ -235,30 +214,9 @@ function App() {
 						</div>
 					</div>
 
-					<div
-						className='w-full items-center flex flex-col gap-5'
-						ref={targetDonationRef}
-					>
-						<span className='w-full text-center text-[32px] pb-6'>
-							Donaciones
-						</span>
-						<div className='w-full rounded-md py-4 px-2'>
-							<TableDonation />
-						</div>
-
-						<div className='flex flex-row justify-center w-full'>
-							<button
-								onClick={handleGetLink}
-								className='dark:bg-white border-none w-full max-h-[40px] sm:w-fit h-[40px] py-0 sm:px-12 rounded-md transition-all duration-300 ease-in-out delay-150 hover:-translate-y-1 hover:scale-105'
-							>
-								{onLoadLink ? (
-									<OnLoading className={'dark:text-[#000]'} />
-								) : (
-									<span className='dark:text-black h-full'>Donar</span>
-								)}
-							</button>
-						</div>
-					</div>
+					{"False".toLowerCase() === REACT_APP_DONATION && (
+						<TableDonation targetDonationRef={targetDonationRef} />
+					)}
 				</div>
 			</div>
 		</div>

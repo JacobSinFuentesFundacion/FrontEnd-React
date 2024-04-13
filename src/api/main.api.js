@@ -1,7 +1,8 @@
 import axios from "axios";
+import { REACT_APP_API_URL } from "../config/enviroment";
 
 const ApiMain = axios.create({
-    baseURL: "http://18.117.70.59:8000",
+    baseURL: REACT_APP_API_URL,
     headers: {
         "Content-Type": "application/json",
     },
