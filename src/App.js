@@ -73,13 +73,6 @@ function App() {
 					behavior: 'smooth',
 				}),
 		},
-		{
-			name: 'Quienes somos',
-			function: () => {
-				setIsVideoOpen(true);
-				setHasVideoInteracted(true);
-			},
-		},
 		"False".toLowerCase() === REACT_APP_DONATION && {
 			name: 'Donaciones',
 			function: () =>
@@ -97,7 +90,7 @@ function App() {
 	const targetDonationRef = useRef(null);
 
 	return (
-		<div className='bg-[#000000]'>
+		<div className="bg-transparent">
 			<NavBarComponent onVideoInteract={() => setHasVideoInteracted(true)} onVideoOpen={() => setIsVideoOpen(true)} menuItemsMain={menuItemsMain} />
 
 			<div className='px-3 sm:px-6 w-full flex flex-col flex-nowrap py-6'>
