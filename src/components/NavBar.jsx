@@ -12,7 +12,7 @@ import {
 } from '@nextui-org/react';
 import JacobLogo from './JacobLogo';
 
-function NavBar({menuItemsMain}) {
+function NavBar({onVideoInteract, onVideoOpen, menuItemsMain}) {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	return (
 		<Navbar
@@ -37,6 +37,12 @@ function NavBar({menuItemsMain}) {
 			<NavbarContent className='hidden sm:flex gap-4' justify='end'>
 				<NavbarBrand>
 					<JacobLogo />
+					<button onClick={() => {
+						onVideoInteract();
+						onVideoOpen();
+					}}>
+						<h2 className="text-xl">Bienvenido</h2>
+					</button>
 				</NavbarBrand>
 
 				{menuItemsMain.map((item, index) => (
@@ -77,6 +83,8 @@ function NavBar({menuItemsMain}) {
 
 NavBar.propTypes = {
 	menuItemsMain: propTypes.array,
+	onVideoOpen: propTypes.func.isRequired,
+	onVideoInteract: propTypes.func.isRequired,
 };
 
 export default NavBar;

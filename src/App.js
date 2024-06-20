@@ -1,7 +1,8 @@
 //  Imports
-import {useRef} from 'react';
+import {useRef, useState} from 'react';
 import emailjs from '@emailjs/browser';
 import ImageCard from './components/ImageCard.jsx';
+import VideoJacob from './components/VideoJacob.jsx';
 
 //  Components
 import NavBarComponent from './components/NavBar.jsx';
@@ -29,6 +30,8 @@ import {
 } from './config/enviroment.js';
 
 function App() {
+	const [isVideoOpen, setIsVideoOpen] = useState(false);
+	const [hasVideoInteracted, setHasVideoInteracted] = useState(false);
 	const form = useRef(null);
 	const contactForm = async e => {
 		e.preventDefault();
@@ -70,6 +73,13 @@ function App() {
 					behavior: 'smooth',
 				}),
 		},
+		{
+			name: 'Quienes somos',
+			function: () => {
+				setIsVideoOpen(true);
+				setHasVideoInteracted(true);
+			},
+		},
 		"False".toLowerCase() === REACT_APP_DONATION && {
 			name: 'Donaciones',
 			function: () =>
@@ -88,10 +98,12 @@ function App() {
 
 	return (
 		<div className='bg-[#000000]'>
-			<NavBarComponent menuItemsMain={menuItemsMain} />
+			<NavBarComponent onVideoInteract={() => setHasVideoInteracted(true)} onVideoOpen={() => setIsVideoOpen(true)} menuItemsMain={menuItemsMain} />
 
 			<div className='px-3 sm:px-6 w-full flex flex-col flex-nowrap py-6'>
-				<div className='mx-auto max-w-[967px] flex flex-col gap-8'>
+				<div className='mx-auto max-w-[967px] flex flex-col gap-8 relative'>
+					<VideoJacob isVideoInteract={hasVideoInteracted} isVideoOpen={isVideoOpen} onVideoInteract={() => setHasVideoInteracted(true)} onCloseVideo={() => setIsVideoOpen(false)} />
+
 					<div className='bg-gradient-to-r from-[#3b1c4a] to-[#100316] rounded-lg px-6 py-12'>
 						<div className='flex flex-col sm:flex-row items-center'>
 							<span className='text-[36px] text-center'>
@@ -165,7 +177,7 @@ function App() {
 						<div className='grid sm:grid-cols-2 sm:grid-rows-1 sm:gap-0 gap-24 w-full'>
 							<div className='flex flex-col justify-center gap-6'>
 								{contactOptions.map((contact, index) => (
-									<div key={index} className='flex flex-row gap-4'>
+									<div onClick={contact.action} key={index} className='flex flex-row gap-4 cursor-pointer'>
 										{contact.icon}
 										<span>{contact.label}</span>
 									</div>
